@@ -37,10 +37,24 @@ class Calculadora {
      * @param {string} numero - El dígito o punto decimal a agregar
      */
     agregarNumero(numero) {
+
+        
         // Evita agregar múltiples puntos decimales
         if (numero === '.' && this.valorActual.includes('.')) return
+
+        // Agrega el dígito o punto decimal al valor actual
+        if(valorActual ==="0" && numero !=="."){
+            valorActual = numero;
+        }
+        else{
+            valorActual +=numero;
+        }
+        actualizarPantalla();
+    
+
+
         // Concatena el nuevo número al valor actual
-        this.valorActual = this.valorActual.toString() + numero.toString()
+         this.valorActual = this.valorActual.toString() + numero.toString()
     }
 
     /**
