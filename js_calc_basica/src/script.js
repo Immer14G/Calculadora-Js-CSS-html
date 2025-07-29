@@ -1,6 +1,14 @@
 /**
  * Clase Calculadora - Maneja la lógica y operaciones de una calculadora básica
  */
+
+let valorActual = "0";
+
+function actualizarPantalla() {
+  const pantalla = document.getElementById('pantalla');
+  pantalla.textContent = valorActual;
+  ajustarFuente(pantalla);
+}
 class Calculadora {
     /**
      * Constructor de la clase Calculadora
@@ -11,9 +19,11 @@ class Calculadora {
         // Almacena referencias a los elementos del DOM para mostrar los valores
         this.valorPrevioTextElement = valorPrevioTextElement
         this.valorActualTextElement = valorActualTextElement
+        
         // Inicializa la calculadora limpiando todos los valores
         this.borrarTodo()
     }
+   
 
     /**
      * Limpia todos los valores de la calculadora, resetea a estado inicial
@@ -38,23 +48,12 @@ class Calculadora {
      */
     agregarNumero(numero) {
 
-        
+         if (this.valorActual.length >= 11) return;
+
         // Evita agregar múltiples puntos decimales
         if (numero === '.' && this.valorActual.includes('.')) return
-
-        // Agrega el dígito o punto decimal al valor actual
-        if(valorActual ==="0" && numero !=="."){
-            valorActual = numero;
-        }
-        else{
-            valorActual +=numero;
-        }
-        actualizarPantalla();
-    
-
-
         // Concatena el nuevo número al valor actual
-         this.valorActual = this.valorActual.toString() + numero.toString()
+        this.valorActual = this.valorActual.toString() + numero.toString()
     }
 
     /**
@@ -178,10 +177,6 @@ const valorPrevioTextElement = document.querySelector('[data-valor-previo]')
 // Captura del elemento que muestra el valor actual en pantalla
 const valorActualTextElement = document.querySelector('[data-valor-actual]')
 
-
-// const pantallaSuperior = document.querySelector(".pantalla-superior");
-
-
 // Instancia principal de la calculadora con referencias a los elementos de display
 const calculator = new Calculadora(valorPrevioTextElement, valorActualTextElement)
 
@@ -213,9 +208,6 @@ operacionButtons.forEach(button => {
 igualButton.addEventListener('click', _button => {
     calculator.calcular()
     calculator.actualizarPantalla()
-
-    
-    // pantallaSuperior.textContent = calculator.getExpresionCompleta()
 })
 
 // Evento para el botón de borrar todo (AC/Clear)
@@ -230,7 +222,6 @@ borrarTodoButton.addEventListener('click', _button => {
 borrarButton.addEventListener('click', _button => {
     calculator.borrar()
     calculator.actualizarPantalla()
-     
 })
 
 /*Laboratorio:
