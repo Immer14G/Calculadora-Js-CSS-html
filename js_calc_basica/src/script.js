@@ -2,13 +2,6 @@
  * Clase Calculadora - Maneja la lógica y operaciones de una calculadora básica
  */
 
-let valorActual = "0";
-
-function actualizarPantalla() {
-  const pantalla = document.getElementById('pantalla');
-  pantalla.textContent = valorActual;
-  ajustarFuente(pantalla);
-}
 class Calculadora {
     /**
      * Constructor de la clase Calculadora
@@ -221,6 +214,13 @@ borrarTodoButton.addEventListener('click', _button => {
 // Elimina el último dígito ingresado del valor actual
 borrarButton.addEventListener('click', _button => {
     calculator.borrar()
+    calculator.actualizarPantalla()
+})
+
+// porcentaje boton arreglado
+porcentajeButton.addEventListener('click', () => {
+    if (calculator.valorActual === '') return
+    calculator.valorActual = (parseFloat(calculator.valorActual) / 100).toString()
     calculator.actualizarPantalla()
 })
 
