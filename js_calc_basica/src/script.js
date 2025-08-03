@@ -15,6 +15,9 @@ class Calculadora {
         
         // Inicializa la calculadora limpiando todos los valores
         this.borrarTodo()
+
+        //inicio una nueva variable para el estado 
+        this.BorrarNumeroAnterior = false;
     }
    
 
@@ -41,12 +44,24 @@ class Calculadora {
      */
     agregarNumero(numero) {
 
+        // se agrega aca la nueva variable de estado
+        // Si la bandera está en 'true', significa que hay un resultado de una operación anterior.
+        // Se borra el resultado actual y se reinicia la bandera.
+        if (this.BorrarNumeroAnterior) {
+            this.valorActual = '';
+            this.BorrarNumeroAnterior = false;
+        }
+
          if (this.valorActual.length >= 11) return;
 
         // Evita agregar múltiples puntos decimales
         if (numero === '.' && this.valorActual.includes('.')) return
         // Concatena el nuevo número al valor actual
         this.valorActual = this.valorActual.toString() + numero.toString()
+
+        // se agrega aca la nueva variable de estado
+        
+
     }
 
     /**
@@ -103,6 +118,8 @@ class Calculadora {
         // Limpia la operación y el valor previo
         this.operacion = undefined
         this.valorPrevio = ''
+        // y aca tambien la variable de estado
+        this.BorrarNumeroAnterior = true; 
     }
 
     /**
@@ -201,7 +218,10 @@ operacionButtons.forEach(button => {
 igualButton.addEventListener('click', _button => {
     calculator.calcular()
     calculator.actualizarPantalla()
+   
 })
+
+
 
 // Evento para el botón de borrar todo (AC/Clear)
 // Limpia completamente la calculadora y vuelve al estado inicial
@@ -222,6 +242,7 @@ porcentajeButton.addEventListener('click', () => {
     if (calculator.valorActual === '') return
     calculator.valorActual = (parseFloat(calculator.valorActual) / 100).toString()
     calculator.actualizarPantalla()
+     
 })
 
 /*Laboratorio:
