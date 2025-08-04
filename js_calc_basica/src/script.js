@@ -18,6 +18,9 @@ class Calculadora {
 
         //inicio una nueva variable para el estado 
         this.BorrarNumeroAnterior = false;
+
+        // variable para mostrar operacion completa 
+        this.cadenaCompleta = '';
     }
    
 
@@ -94,6 +97,9 @@ class Calculadora {
         const valor_2 = parseFloat(this.valorActual)
         // Si algún valor no es un número válido, salir de la función
         if (isNaN(valor_1) || isNaN(valor_2)) return
+
+        //almacena la operacion completa y en este semuestra completa en pantalla 
+        this.cadenaCompleta = `${this.obtenerNumero(this.valorPrevio)} ${this.operacion} ${this.obtenerNumero(this.valorActual)} =`;
         
         // Realiza el cálculo según el tipo de operación
         switch (this.operacion) {
@@ -156,12 +162,23 @@ class Calculadora {
     actualizarPantalla() {
         // Muestra el valor actual formateado en el display principal
         this.valorActualTextElement.innerText = this.obtenerNumero(this.valorActual)
-        // Si hay una operación seleccionada, muestra el valor previo y la operación
-        if (this.operacion != null) {
+        
+        // Si hay una operación seleccionada, muestra el valor previo y la operación 
+
+        if (this.cadenaCompleta != '') {
+            this.valorPrevioTextElement.innerText = this.cadenaCompleta 
+
+        
+            // lo utilizararemos dentro para mostrar el valor previo y la operación en la pantalla
+          } else if (this.operacion != null) {
             this.valorPrevioTextElement.innerText = `${this.obtenerNumero(this.valorPrevio)} ${this.operacion}`
-        } else {
+        }
+        
+        else {
             this.valorPrevioTextElement.innerText = ''
         }
+
+        
     }
 }
 
